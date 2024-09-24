@@ -115,7 +115,9 @@ WHERE row_num > 1;
 
 #### 2. Standardize the data
 
-* *Whitespace Standardization, check for extra spacing in the columns using Trim*
+* *Whitespace Standardization*
+
+*Remove whitespaces in the columns using Trim*
 
 ```sql
 select company, trim(company), location, trim(location), industry, trim(industry), stage, trim(stage), 
@@ -183,3 +185,42 @@ UPDATE layoffs_view2
 SET Country = 'United State'
 WHERE Country = 'United State.';
 ```
+<br>
+
+* *Standardizing Date*
+
+```sql
+select `date` from layoffs_view2;
+```
+
+*Covert to standard date format*
+
+```sql
+UPDATE layoffs_view2
+SET `date` = str_to_date(`date`, '%m/%d/%Y');
+```
+<br>
+
+* *Standardizing DataType*
+
+```sql
+describe layoffs_view2;
+```
+
+*Alter Date column, change from text to date*
+
+```sql
+Alter table layoffs_view2
+modify `date` date;
+```
+
+*Alter Percentage_laid_off column, change from text to float*
+
+```sql
+ALTER TABLE layoffs_view2
+MODIFY percentage_laid_off float;
+```
+<br>
+
+
+#### 3. Null values or Blank values
