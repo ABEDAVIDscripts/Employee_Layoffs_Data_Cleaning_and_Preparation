@@ -1,5 +1,14 @@
 # Data Cleaning with MySQL
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Dataset](#dataset)
+- [Objectives](#objectives)
+- [Steps Taken in Cleaning Layoffs Dataset](#steps-taken-in-cleaning-layoffs-dataset)
+
+<br>
+
 ### Project Overview
 The primary objective of this project is to clean and prepare a dataset named **Layoffs** for accurate analysis. This involves identifying and handling inconsistencies, null values, duplicates, and irrelevant data in the table to ensure the dataset is ready for further analysis or reporting.
 
@@ -339,7 +348,7 @@ where (total_laid_off is null or total_laid_off = '')
 and (percentage_laid_off is null or percentage_laid_off = '');
 ```
 
-*Observation: I believe this null values will be irrelevant for analysis, Total & Percentage Laid Off are part of the core data for analysis. Hence, Data is not trusted.*
+*Recommendation: I believe this null values will be irrelevant for analysis, Total & Percentage Laid Off are part of the core data for analysis. Hence, Data is not trusted.*
 
 ```sql
 DELETE
