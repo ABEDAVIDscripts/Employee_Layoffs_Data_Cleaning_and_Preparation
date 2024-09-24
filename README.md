@@ -19,7 +19,7 @@ The dataset contains records of layoffs from different companies across various 
 - date: Date of the layoffs.
 - country: The country where the layoffs occurred.
 - funds_raised_millions: The total amount of funds raised by the company.
-- stage: Refers to the company’s stage in its financial or business lifecycle at the time of layoffs, below are the various stages:
+- stage: The company’s stage in its financial or business lifecycle at the time of layoffs, below are the various stages:
 
   
   - Post-IPO: The company has gone public.
@@ -41,10 +41,15 @@ The dataset contains records of layoffs from different companies across various 
 
 <br>
 
-### Steps Taken in Layoffs Data Cleaning
+### Steps Taken in Cleaning Layoffs Dataset
 #### 1. Data importing and inspection
 
-*Table imported using Table-Data-Import-Wizard*
+*Table imported using Table-Data-Import-Wizard, verify the imported dataset*
+
+```sql
+SELECT *
+FROM layoffs;
+```
 
 *create a new work table to protect the raw dataset.*
 
@@ -304,7 +309,10 @@ AND (industry = '' OR industry is NULL);
 
 #### 5. Remove irrelevant records & columns
 
-*check for blank space & null values in the columns that cannot be populated, using total_laid_off & percentage_laid_off columns*
+* *Remove/Delete irrelevant records*
+
+
+*check for blank space & null values in the columns that cannot be populated, using total_laid_off, percentage_laid_off columns and funds_raised_millions *
 
 ```sql
 select * from layoffs_view2
@@ -339,3 +347,20 @@ FROM layoffs_view2
 where (total_laid_off is null or total_laid_off = '')
 and (percentage_laid_off is null or percentage_laid_off = '');
 ```
+
+* *Remove/Delete irrelevant columns*
+
+*remove Row_Num column*
+
+```sql
+ALTER TABLE layoffs_view2
+DROP COLUMN row_num;
+```
+
+### 6. Verify the cleaned dataset
+
+```sql
+SELECT *
+FROM layoffs_view2;
+```
+
