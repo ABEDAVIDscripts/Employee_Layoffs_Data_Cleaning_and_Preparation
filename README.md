@@ -3,6 +3,8 @@
 ### Project Overview
 The primary objective of this project is to clean and prepare a dataset named **Layoffs** for accurate analysis. This involves identifying and handling inconsistencies, null values, duplicates, and irrelevant data in the table to ensure the dataset is ready for further analysis or reporting.
 
+<br>
+
 ### Dataset
 The dataset used for this project is the "layoffs.csv".
 
@@ -27,6 +29,8 @@ The dataset contains records of layoffs from different companies across various 
   - Subsidiary: A part of a larger company.
   - Acquired: The company has been purchased.
   - Unknown: The stage is not disclosed.
+ 
+  <br>
 
 ### Objectives
 1. Import the csv file into MySQL database.
@@ -59,6 +63,10 @@ SELECT * FROM layoffs;
 ```sql
 select * from layoffs_view
 ```
+
+<br>
+
+#### 2. Remove Duplicates
 
 *there is no primary key, create a new unique column using row_number*
 
@@ -113,7 +121,7 @@ WHERE row_num > 1;
 
 <br>
 
-#### 2. Standardize the data
+#### 3. Standardize the data
 
 * *Whitespace Standardization*
 
@@ -223,4 +231,111 @@ MODIFY percentage_laid_off float;
 <br>
 
 
-#### 3. Null values or Blank values
+#### 4. Handling Null values or Blank values
+
+*check for NULL & Blank space using industry column*
+
+```sql
+select * from layoffs_view2
+where industry is null 
+OR industry = '';
+```
+
+*There are 4 different companies affected.*
+
+*first: Airbnb company. check if company have repeated values in the Industry column*
+
+```sql
+select * from layoffs_view2
+where company = 'Airbnb';
+```
+
+*The record can be populated. Update the blank space for company Airbnb*
+
+```sql
+UPDATE layoffs_view2
+SET industry = 'Travel'
+WHERE company = 'Airbnb' 
+AND (industry is NULL OR industry = '');
+```
+
+*second: Bally's Interactive company. check if company have repeated values in the Industry column*
+
+```sql
+select * from layoffs_view2
+where company like 'Bally%';
+```
+*The record for Bally's company is a single record, therefore it can't be populated*
+
+
+*third: Carvana company. check if company have repeated values in the Industry column*
+
+```sql
+select * from layoffs_view2
+where company = 'Carvana';
+```
+
+*The record can be populated. Update the blank space for company Carvana.*
+
+```sql
+UPDATE layoffs_view2
+SET industry = 'Transportation'
+WHERE company = 'Carvana'
+AND (industry = '' OR industry is NULL);
+```
+
+*fourth. Juul company. check if company have repeated values in the Industry column*
+
+```sql
+select * from layoffs_view2
+where company = 'Juul';
+```
+
+*The record can be populated. Update the blank space for company Juul.*
+
+```sql
+UPDATE layoffs_view2
+SET industry = 'Consumer'
+WHERE company = 'Juul'
+AND (industry = '' OR industry is NULL);
+```
+
+<br>
+
+#### 5. Remove irrelevant records & columns
+
+*check for blank space & null values in the columns that cannot be populated, using total_laid_off & percentage_laid_off columns*
+
+```sql
+select * from layoffs_view2
+where (total_laid_off is null or total_laid_off = '')
+and (percentage_laid_off is null or percentage_laid_off = '')
+and (funds_raised_millions is null or funds_raised_millions = '');
+```
+
+*delete for the blankspaces and null conditions*
+
+```sql
+DELETE
+FROM layoffs_view2
+where (total_laid_off is null or total_laid_off = '')
+and (percentage_laid_off is null or percentage_laid_off = '')
+and (funds_raised_millions is null or funds_raised_millions = '');
+```
+
+*Check for the any other nulls and blank spaces values*
+
+```sql
+select * from layoffs_view2
+where (total_laid_off is null or total_laid_off = '')
+and (percentage_laid_off is null or percentage_laid_off = '');
+```
+
+*Observation: I believe this null values will be irrelevant for analysis, Total & Percentage Laid Off are part of the core data for analysis. Hence, Data is not trusted.*
+
+```sql
+DELETE
+FROM layoffs_view2
+where (total_laid_off is null or total_laid_off = '')
+and (percentage_laid_off is null or percentage_laid_off = '');
+```
