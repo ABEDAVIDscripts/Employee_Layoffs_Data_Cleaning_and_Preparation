@@ -115,7 +115,7 @@ WHERE row_num > 1;
 
 #### 2. Standardize the data
 
-*check for extra spacing in the columns with Trim*
+* *Whitespace Standardization, check for extra spacing in the columns using Trim*
 
 ```sql
 select company, trim(company), location, trim(location), industry, trim(industry), stage, trim(stage), 
@@ -123,10 +123,63 @@ country, trim(country)
 from layoffs_view2;
 ```
 
-*exta spaces found. Update and remove the spaces*
+*whitespace found! Update and remove the whitespaces*
 
 ```sql
 update layoffs_view2
 set company = trim(company), location = trim(location), industry = trim(industry), 
 stage = trim(stage), country = trim(country);
+```
+<br>
+
+* *Standardizing Categorical Values*
+
+*check with Location column*
+
+```sql
+select distinct location from layoffs_view2
+order by location;
+```
+
+*correct & update {DÃ¼sseldorf, FlorianÃ³polis and MalmÃ¶} to {Dusseldorf, Florianopolis and Malmo} respectively*
+
+```sql
+UPDATE layoffs_view2
+SET Location = CASE
+WHEN Location = 'DÃ¼sseldorf' THEN 'Dusseldorf'
+WHEN Location = 'FlorianÃ³polis' THEN 'Florianopolis'
+WHEN Location = 'MalmÃ¶' THEN 'Malmo'
+ELSE Location
+End;
+```
+
+*check with Industry column*
+
+```sql
+SELECT distinct industry from layoffs_view2
+order by industry;
+```
+
+*Inconsistency found. Update Crypto Currency & CryptoCurrency to Crypto*
+
+```sql
+UPDATE layoffs_view2
+SET industry = 'Crypto'
+WHERE industry LIKE 'crypto%';
+```
+
+*check with Country column*
+
+```sql
+select distinct country
+from layoffs_view2
+order by country;
+```
+
+*Inconsistency found. Update (United State.) to United State*
+
+```sql
+UPDATE layoffs_view2
+SET Country = 'United State'
+WHERE Country = 'United State.';
 ```
