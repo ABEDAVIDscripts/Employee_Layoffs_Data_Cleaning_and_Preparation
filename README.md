@@ -6,6 +6,8 @@
 - [Dataset](#dataset)
 - [Objectives](#objectives)
 - [Steps Taken in Cleaning Layoffs Dataset](#steps-taken-in-cleaning-layoffs-dataset)
+  - [1. Data importing and inspection](#1-data-importing-and-inspection)
+  - [2. Remove Duplicates](#2-remove-duplicates)
 
 <br>
 
@@ -51,7 +53,7 @@ The dataset contains records of layoffs from different companies across various 
 <br>
 
 ### Steps Taken in Cleaning Layoffs Dataset
-#### 1. Data importing and inspection
+#### 1 Data importing and inspection
 
 *Table imported using Table-Data-Import-Wizard, verify the imported dataset*
 
@@ -80,7 +82,7 @@ select * from layoffs_view
 
 <br>
 
-#### 2. Remove Duplicates
+#### 2 Remove Duplicates
 
 *there is no primary key, create a new unique column using row_number*
 
