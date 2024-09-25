@@ -11,7 +11,7 @@
   - [3. Standardize the data](#3-standardize-the-data)
   - [4. Handling Null Values or Blank Values](#4-handling-null-values-or-blank-values)
   - [5. Remove Irrelevant Records and Columns](#5-remove-irrelevant-records-and-columns)
-  - [Objectives](#objectives)
+  - [6. Verify the Cleaned Dataset](#6-verify-the-cleaned-dataset)
 
 <br>
 
@@ -322,7 +322,7 @@ AND (industry = '' OR industry is NULL);
 
 <br>
 
-#### 5 Remove Irrelevant Records & Columns
+#### 5 Remove Irrelevant Records and Columns
 
 * *Remove/Delete irrelevant records*
 
@@ -372,7 +372,7 @@ ALTER TABLE layoffs_view2
 DROP COLUMN row_num;
 ```
 
-### 6. Verify the cleaned dataset
+### 6 Verify the Cleaned Dataset
 
 ```sql
 SELECT *
