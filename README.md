@@ -8,6 +8,10 @@
 - [Steps Taken in Cleaning Layoffs Dataset](#steps-taken-in-cleaning-layoffs-dataset)
   - [1. Data importing and inspection](#1-data-importing-and-inspection)
   - [2. Remove Duplicates](#2-remove-duplicates)
+  - [3. Standardize the data](#3-standardize-the-data)
+  - [4. Handling Null Values or Blank Values](#4-handling-null-values-or-blank-values)
+  - [5. Remove Irrelevant Records and Columns](#5-remove-irrelevant-records-and-columns)
+  - [Objectives](#objectives)
 
 <br>
 
@@ -137,7 +141,7 @@ WHERE row_num > 1;
 
 <br>
 
-#### 3. Standardize the data
+#### 3 Standardize the Data
 
 * *Whitespace Standardization*
 
@@ -247,7 +251,7 @@ MODIFY percentage_laid_off float;
 <br>
 
 
-#### 4. Handling Null values or Blank values
+#### 4 Handling Null Values or Blank Values
 
 *check for NULL & Blank space using industry column*
 
@@ -318,7 +322,7 @@ AND (industry = '' OR industry is NULL);
 
 <br>
 
-#### 5. Remove irrelevant records & columns
+#### 5 Remove Irrelevant Records & Columns
 
 * *Remove/Delete irrelevant records*
 
