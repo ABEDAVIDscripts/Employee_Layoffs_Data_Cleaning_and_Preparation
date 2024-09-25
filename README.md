@@ -372,7 +372,7 @@ ALTER TABLE layoffs_view2
 DROP COLUMN row_num;
 ```
 
-### 6 Verify the Cleaned Dataset
+#### 6 Verify the Cleaned Dataset
 
 ```sql
 SELECT *
