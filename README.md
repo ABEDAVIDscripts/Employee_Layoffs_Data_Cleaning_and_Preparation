@@ -1,4 +1,7 @@
 # Data Cleaning with MySQL
+![Layoffs logo][]
+
+
 
 ## Table of Contents
 
