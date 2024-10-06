@@ -1,5 +1,5 @@
 # Data Cleaning with MySQL
-![Layoffs logo]()
+![Layoffs logo](https://github.com/ABEDAVIDscripts/Data-Cleaning-with-Mysql/blob/main/layoffs%20image.jpg)
 
 
 
