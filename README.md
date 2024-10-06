@@ -1,5 +1,5 @@
 # Data Cleaning with MySQL
-![Layoffs logo][]
+![Layoffs logo]()
 
 
 
