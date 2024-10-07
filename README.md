@@ -1,7 +1,5 @@
 # Layoffs Dataset Cleaning with MySQL
 
-![layoffs](images/layoffs.png)
-
 
 ## Table of Contents
 
