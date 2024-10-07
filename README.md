@@ -1,6 +1,6 @@
 # Data Cleaning with MySQL
 
-![layoffs image](https://github.com/user-attachments/assets/147dbe74-20d2-4053-9fb1-3838c942e6ff)
+
 
 
 
