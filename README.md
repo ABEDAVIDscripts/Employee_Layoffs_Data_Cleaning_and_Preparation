@@ -1,7 +1,8 @@
 # Data Cleaning with MySQL
-![Layoffs logo](https://media.cybernews.com/images/featured-big/2022/07/layoffsregret.jpg)
 
+![layoffs image](https://github.com/user-attachments/assets/147dbe74-20d2-4053-9fb1-3838c942e6ff)
 
+![960x0](https://github.com/user-attachments/assets/4680da5e-10b7-4dee-bac3-f50a1a1f7257)
 
 ## Table of Contents
 
