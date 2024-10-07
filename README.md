@@ -1,5 +1,5 @@
 # Data Cleaning with MySQL
-![Layoffs logo](https://github.com/ABEDAVIDscripts/Data-Cleaning-with-Mysql/blob/main/layoffs%20image.jpg)
+![Layoffs logo](https://media.cybernews.com/images/featured-big/2022/07/layoffsregret.jpg)
 
 
 
