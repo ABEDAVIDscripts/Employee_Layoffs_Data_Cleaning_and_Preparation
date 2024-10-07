@@ -1,4 +1,4 @@
-# Data Cleaning with MySQL
+# Layoffs Dataset Cleaning with MySQL
 
 
 
