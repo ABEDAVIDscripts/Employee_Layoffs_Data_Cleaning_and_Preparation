@@ -1,6 +1,6 @@
 # Data Cleaning with MySQL
 
-![layoffs image](https://github.com/user-attachments/assets/e9695d05-66b0-42e9-a017-f4f876a8774c)
+![layoffs image](https://github.com/ABEDAVIDscripts/Data-Cleaning-with-Mysql/blob/main/layoffs%20image.png)
 
 
 
