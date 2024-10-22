@@ -1,5 +1,6 @@
 # Employees Layoff Dataset Cleaning with MySQL
 
+![image](https://github.com/ABEDAVIDscripts/Employees-Layoff-Project/blob/main/images/layoffs.png)
 
 ## Table of Contents
 
