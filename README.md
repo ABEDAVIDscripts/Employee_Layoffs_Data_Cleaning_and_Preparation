@@ -1,4 +1,4 @@
-# Layoffs Dataset Cleaning with MySQL
+# Employees Layoff Dataset Cleaning with MySQL
 
 
 ## Table of Contents
