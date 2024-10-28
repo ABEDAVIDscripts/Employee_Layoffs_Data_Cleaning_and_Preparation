@@ -88,7 +88,7 @@ select * from layoffs_view
 
 <br>
 
-#### 2 Remove Duplicates
+#### 2. Remove Duplicates
 
 *their is no primary key, create a new unique column using row_number*
 
@@ -99,7 +99,7 @@ stage, country, funds_raised_millions) AS row_num
 FROM layoffs_view;
 ```
 
-*confirm if there are duplicate, if the unique value is greater than 1*
+*confirm if there are duplicates, if the unique value is greater than 1*
 
 ```sql
 WITH duplicate_cte 
@@ -143,7 +143,7 @@ WHERE row_num > 1;
 
 <br>
 
-#### 3 Standardize the Data
+#### 3. Standardize the Data
 
 * *Whitespace Standardization*
 
@@ -253,9 +253,9 @@ MODIFY percentage_laid_off float;
 <br>
 
 
-#### 4 Handling Null Values or Blank Values
+#### 4. Handling Null Values and Blank Values
 
-*check for NULL & Blank space using industry column*
+*check for NULL & Blank values using industry column*
 
 ```sql
 select * from layoffs_view2
@@ -272,7 +272,7 @@ select * from layoffs_view2
 where company = 'Airbnb';
 ```
 
-*The record can be populated. Update the blank space for company Airbnb*
+*The record can be populated. Update the blank value for company Airbnb*
 
 ```sql
 UPDATE layoffs_view2
@@ -297,7 +297,7 @@ select * from layoffs_view2
 where company = 'Carvana';
 ```
 
-*The record can be populated. Update the blank space for company Carvana.*
+*The record can be populated. Update the blank value for company Carvana.*
 
 ```sql
 UPDATE layoffs_view2
@@ -313,7 +313,7 @@ select * from layoffs_view2
 where company = 'Juul';
 ```
 
-*The record can be populated. Update the blank space for company Juul.*
+*The record can be populated. Update the blank value for company Juul.*
 
 ```sql
 UPDATE layoffs_view2
@@ -324,12 +324,12 @@ AND (industry = '' OR industry is NULL);
 
 <br>
 
-#### 5 Remove Irrelevant Records and Columns
+#### 5. Remove Irrelevant Records and Columns
 
 * *Remove/Delete irrelevant records*
 
 
-*check for blank space & null values in the columns that cannot be populated, using total_laid_off, percentage_laid_off columns and funds_raised_millions *
+*check for blank value & null values in the columns that cannot be populated, using total_laid_off, percentage_laid_off columns and funds_raised_millions *
 
 ```sql
 select * from layoffs_view2
@@ -376,7 +376,7 @@ DROP COLUMN row_num;
 
 <br>
 
-#### 6 Verify the Cleaned Dataset
+#### 6. Verify the Cleaned Dataset
 
 ```sql
 SELECT *
