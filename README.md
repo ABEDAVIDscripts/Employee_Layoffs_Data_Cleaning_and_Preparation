@@ -18,14 +18,14 @@
 <br>
 
 ### Project Overview
-The primary objective of this project is to clean and prepare a dataset named **Layoffs** for accurate analysis. This involves identifying and handling inconsistencies, null values, duplicates, and irrelevant data in the table to ensure the dataset is ready for further analysis or reporting.
+The primary objective of this project is to **clean and prepare** a dataset named **Layoffs** for accurate analysis. This involves identifying and handling inconsistencies, null values, duplicates, and irrelevant data in the table to ensure the dataset is ready for further analysis or reporting.
 
 <br>
 
 ### Dataset
 The dataset used for this project is the "layoffs.csv".
 
-The dataset contains records of layoffs from different companies across various locations. It includes information such as the company name, location, industry, total laidoff, percentage of laidoffs, date of layoffs, stage, country and funds raised.
+The dataset contains records of employee layoffs from different companies across various locations. It includes information such as the company name, location, industry, total laidoff, percentage of laidoffs, date of layoffs, stage, country and funds raised.
 
 #### Columns in the Dataset:
 - company: Name of the company.
@@ -59,7 +59,7 @@ The dataset contains records of layoffs from different companies across various 
 <br>
 
 ### Steps Taken in Cleaning Layoffs Dataset
-#### 1 Data importing and inspection
+#### 1. Data importing and inspection
 
 *Table imported using Table-Data-Import-Wizard, verify the imported dataset*
 
@@ -90,7 +90,7 @@ select * from layoffs_view
 
 #### 2 Remove Duplicates
 
-*there is no primary key, create a new unique column using row_number*
+*their is no primary key, create a new unique column using row_number*
 
 ```sql
 SELECT *, ROW_NUMBER()
