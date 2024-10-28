@@ -11,7 +11,7 @@
   - [1. Data importing and inspection](#1-data-importing-and-inspection)
   - [2. Remove Duplicates](#2-remove-duplicates)
   - [3. Standardize the data](#3-standardize-the-data)
-  - [4. Handling Null Values or Blank Values](#4-handling-null-values-or-blank-values)
+  - [4. Handling Null Values and Blank Values](#4-handling-null-values-and-blank-values)
   - [5. Remove Irrelevant Records and Columns](#5-remove-irrelevant-records-and-columns)
   - [6. Verify the Cleaned Dataset](#6-verify-the-cleaned-dataset)
 
