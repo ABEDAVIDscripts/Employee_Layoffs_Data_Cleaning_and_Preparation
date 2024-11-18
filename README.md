@@ -2,6 +2,8 @@
 
 ![image](images/layoffs.png)
 
+<br>
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
