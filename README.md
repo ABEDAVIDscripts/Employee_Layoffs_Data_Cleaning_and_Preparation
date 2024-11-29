@@ -1,4 +1,4 @@
-# Employees Layoff Dataset Cleaning using MySQL
+# Employees Layoff Data Cleaning Using MySQL
 
 ![image](images/layoffs.png)
 
