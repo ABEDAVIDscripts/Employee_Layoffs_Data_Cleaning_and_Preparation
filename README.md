@@ -12,7 +12,7 @@
 - [Steps Taken in Cleaning Layoffs Dataset](#steps-taken-in-cleaning-layoffs-dataset)
   - [1. Data importing and inspection](#1-data-importing-and-inspection)
   - [2. Remove Duplicates](#2-remove-duplicates)
-  - [3. Standardize the data](#3-standardize-the-data)
+  - [3. Data Standardization](#3-data-standardization)
   - [4. Handling Null Values and Blank Values](#4-handling-null-values-and-blank-values)
   - [5. Remove Irrelevant Records and Columns](#5-remove-irrelevant-records-and-columns)
   - [6. Verify the Cleaned Dataset](#6-verify-the-cleaned-dataset)
@@ -63,26 +63,28 @@ The dataset contains records of employee layoffs from different companies across
 ### Steps Taken in Cleaning Layoffs Dataset
 #### 1. Data importing and inspection
 
-*Table imported using Table-Data-Import-Wizard, verify the imported dataset*
+> Table imported using Table-Data-Import-Wizard, verify the imported dataset
 
 ```sql
 SELECT *
 FROM layoffs;
 ```
 
-*create a new work table to protect the raw dataset.*
+> Create a new work table to protect the raw dataset.
 
 ```sql
 CREATE TABLE layoffs_view
 LIKE layoffs;
 ```
-*copy data into the new work table*
+
+> Copy data into the new work table
 
 ```sql
 INSERT INTO layoffs_view 
 SELECT * FROM layoffs;
 ```
-*verify the New Work Table*
+
+> Verify the New Work Table
 
 ```sql
 select * from layoffs_view
@@ -92,7 +94,7 @@ select * from layoffs_view
 
 #### 2. Remove Duplicates
 
-*their is no primary key, create a new unique column using row_number*
+> Their is no primary key, create a new unique column using row_number
 
 ```sql
 SELECT *, ROW_NUMBER()
@@ -101,7 +103,7 @@ stage, country, funds_raised_millions) AS row_num
 FROM layoffs_view;
 ```
 
-*confirm if there are duplicates, if the unique value is greater than 1*
+> Confirm if there are duplicates, if the unique value is greater than 1
 
 ```sql
 WITH duplicate_cte 
@@ -113,21 +115,21 @@ SELECT * FROM duplicate_cte
 WHERE row_num > 1;
 ```
 
-*duplicate found! Create another work table and move the query result of the row_number into it*
+> Duplicate found! Create another work table and move the query result of the row_number into it
 
 ```sql
 CREATE TABLE layoffs_view2
 LIKE layoffs_view;
 ```
 
-*Add a new column Row_Num, before moving the query result*
+> Add a new column Row_Num, before moving the query result
 
 ```sql
 Alter Table layoffs_view2
 Add Column row_num int;
 ```
 
-*move the query result of the Row Number into layoffs_view2*
+> Move the query result of the Row Number into layoffs_view2
 
 ```sql
 Insert into layoffs_view2
@@ -136,7 +138,7 @@ stage, country, funds_raised_millions) AS row_num
 FROM layoffs_view);
 ```
 
-*delete the duplicates*
+> Delete the duplicates
 
 ```sql
 DELETE FROM layoffs_view2
@@ -145,11 +147,11 @@ WHERE row_num > 1;
 
 <br>
 
-#### 3. Standardize the Data
+#### 3. Data Standardization
 
-* *Whitespace Standardization*
+- *Whitespace Standardization*
 
-*Remove whitespaces in the columns using Trim*
+> Remove whitespaces in the columns using Trim
 
 ```sql
 select company, trim(company), location, trim(location), industry, trim(industry), stage, trim(stage), 
@@ -157,7 +159,7 @@ country, trim(country)
 from layoffs_view2;
 ```
 
-*whitespace found! Update and remove the whitespaces*
+> Whitespace found! Update and remove the whitespaces
 
 ```sql
 update layoffs_view2
@@ -166,16 +168,16 @@ stage = trim(stage), country = trim(country);
 ```
 <br>
 
-* *Standardizing Categorical Values*
+- *Standardization by Categorical Values*
 
-*check with Location column*
+> Check with Location column
 
 ```sql
 select distinct location from layoffs_view2
 order by location;
 ```
 
-*correct & update {DÃ¼sseldorf, FlorianÃ³polis and MalmÃ¶} to {Dusseldorf, Florianopolis and Malmo} respectively*
+> Correct & update {DÃ¼sseldorf, FlorianÃ³polis and MalmÃ¶} to {Dusseldorf, Florianopolis and Malmo} respectively
 
 ```sql
 UPDATE layoffs_view2
@@ -187,14 +189,14 @@ ELSE Location
 End;
 ```
 
-*check with Industry column*
+> Check with Industry column
 
 ```sql
 SELECT distinct industry from layoffs_view2
 order by industry;
 ```
 
-*Inconsistency found. Update Crypto Currency & CryptoCurrency to Crypto*
+> Inconsistency found. Update Crypto Currency & CryptoCurrency to Crypto
 
 ```sql
 UPDATE layoffs_view2
@@ -202,7 +204,7 @@ SET industry = 'Crypto'
 WHERE industry LIKE 'crypto%';
 ```
 
-*check with Country column*
+> Check with Country column
 
 ```sql
 select distinct country
@@ -210,7 +212,7 @@ from layoffs_view2
 order by country;
 ```
 
-*Inconsistency found. Update (United State.) to United State*
+> Inconsistency found. Update (United State.) to United State
 
 ```sql
 UPDATE layoffs_view2
@@ -219,13 +221,13 @@ WHERE Country = 'United State.';
 ```
 <br>
 
-* *Standardizing Date*
+- *Standardization by Date*
 
 ```sql
 select `date` from layoffs_view2;
 ```
 
-*Covert to standard date format*
+> Covert to standard date format
 
 ```sql
 UPDATE layoffs_view2
@@ -233,20 +235,20 @@ SET `date` = str_to_date(`date`, '%m/%d/%Y');
 ```
 <br>
 
-* *Standardizing DataType*
+- *Standardization by DataType*
 
 ```sql
 describe layoffs_view2;
 ```
 
-*Alter Date column, change from text to date*
+> Alter Date column, change from text to date
 
 ```sql
 Alter table layoffs_view2
 modify `date` date;
 ```
 
-*Alter Percentage_laid_off column, change from text to float*
+> Alter Percentage_laid_off column, change from text to float
 
 ```sql
 ALTER TABLE layoffs_view2
@@ -257,7 +259,7 @@ MODIFY percentage_laid_off float;
 
 #### 4. Handling Null Values and Blank Values
 
-*check for NULL & Blank values using industry column*
+- Check for NULL & Blank values using industry column
 
 ```sql
 select * from layoffs_view2
@@ -265,16 +267,16 @@ where industry is null
 OR industry = '';
 ```
 
-*There are 4 different companies affected.*
+- *Four companies are affected.*
 
-*first: Airbnb company. check if company have repeated values in the Industry column*
+> (ai).  Airbnb company. check if company have repeated values in the Industry column
 
 ```sql
 select * from layoffs_view2
 where company = 'Airbnb';
 ```
 
-*The record can be populated. Update the blank value for company Airbnb*
+> (aii).  The record can be populated. Update the blank value for company Airbnb
 
 ```sql
 UPDATE layoffs_view2
@@ -283,23 +285,27 @@ WHERE company = 'Airbnb'
 AND (industry is NULL OR industry = '');
 ```
 
-*second: Bally's Interactive company. check if company have repeated values in the Industry column*
+> (bi).  Bally's Interactive company. check if company have repeated values in the Industry column
 
 ```sql
 select * from layoffs_view2
 where company like 'Bally%';
 ```
-*The record for Bally's company is a single record, therefore it can't be populated*
 
+> (bii).  The record for Bally's company is a single record, therefore it can't be populated
 
-*third: Carvana company. check if company have repeated values in the Industry column*
+```sql
+no query
+```
+
+> (ci).  Carvana company. check if company have repeated values in the Industry column
 
 ```sql
 select * from layoffs_view2
 where company = 'Carvana';
 ```
 
-*The record can be populated. Update the blank value for company Carvana.*
+> (cii).  The record can be populated. Update the blank value for company Carvana.
 
 ```sql
 UPDATE layoffs_view2
@@ -308,14 +314,14 @@ WHERE company = 'Carvana'
 AND (industry = '' OR industry is NULL);
 ```
 
-*fourth. Juul company. check if company have repeated values in the Industry column*
+> (di).  Juul company. check if company have repeated values in the Industry column
 
 ```sql
 select * from layoffs_view2
 where company = 'Juul';
 ```
 
-*The record can be populated. Update the blank value for company Juul.*
+> (dii).  The record can be populated. Update the blank value for company Juul.
 
 ```sql
 UPDATE layoffs_view2
@@ -328,10 +334,10 @@ AND (industry = '' OR industry is NULL);
 
 #### 5. Remove Irrelevant Records and Columns
 
-* *Remove/Delete irrelevant records*
+- *Remove/Delete irrelevant records*
 
 
-*check for blank value & null values in the columns that cannot be populated, using total_laid_off, percentage_laid_off columns and funds_raised_millions *
+> check for blank value & null values in the columns that cannot be populated, using total_laid_off, percentage_laid_off columns and funds_raised_millions
 
 ```sql
 select * from layoffs_view2
@@ -340,7 +346,7 @@ and (percentage_laid_off is null or percentage_laid_off = '')
 and (funds_raised_millions is null or funds_raised_millions = '');
 ```
 
-*delete for the blankspaces and null conditions*
+> delete for the blankspaces and null conditions
 
 ```sql
 DELETE
@@ -350,7 +356,7 @@ and (percentage_laid_off is null or percentage_laid_off = '')
 and (funds_raised_millions is null or funds_raised_millions = '');
 ```
 
-*Check for the any other nulls and blank spaces values*
+> Check for the any other nulls and blank spaces values
 
 ```sql
 select * from layoffs_view2
@@ -358,7 +364,7 @@ where (total_laid_off is null or total_laid_off = '')
 and (percentage_laid_off is null or percentage_laid_off = '');
 ```
 
-*Recommendation: I believe this null values will be irrelevant for analysis, Total & Percentage Laid Off are part of the core data for analysis. Hence, Data is not trusted.*
+> Recommendation: I believe this null values will be irrelevant for analysis, Total & Percentage Laid Off are part of the core data for analysis. Hence, Data is not trusted.
 
 ```sql
 DELETE
@@ -367,9 +373,9 @@ where (total_laid_off is null or total_laid_off = '')
 and (percentage_laid_off is null or percentage_laid_off = '');
 ```
 
-* *Remove/Delete irrelevant columns*
+- *Remove/Delete irrelevant columns*
 
-*remove Row_Num column*
+> remove Row_Num column
 
 ```sql
 ALTER TABLE layoffs_view2
